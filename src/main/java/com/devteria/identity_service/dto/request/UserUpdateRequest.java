@@ -11,10 +11,9 @@ import java.time.LocalDate;
 @Builder // giup tao 1 doi tuong va gan gia tri nhanh hơn ko cần truyền hết tham số vào constructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class UserUpdateRequest {
-      String password;
-      String firstname;
-      String lastname;
-      LocalDate dob;
-
+       String password;
+       String firstname;
+       String lastname;
+       LocalDate dob;
 
 }
