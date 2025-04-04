@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
-
     @ExceptionHandler(value = AppException.class)
     ResponseEntity<ApiResponse> handlingAppException(AppException exception){
         ErrorCode errorCode = exception.getErrorCode();//enum
@@ -18,8 +17,6 @@ public class GlobalExceptionHandler {
         return ResponseEntity.badRequest().body(apiResponse);
     }
 
-
-
     @ExceptionHandler(value = Exception.class)
     ResponseEntity<ApiResponse> handlingRuntimeException(RuntimeException exception){
         ApiResponse apiResponse = new ApiResponse();
@@ -27,16 +24,10 @@ public class GlobalExceptionHandler {
         apiResponse.setMessage(ErrorCode.UNCATEGORIZED_EXIT.getMessage());
         return ResponseEntity.badRequest().body(apiResponse);
     }
+
     @ExceptionHandler(value = MethodArgumentNotValidException.class)
     ResponseEntity<ApiResponse> handlingValidation(MethodArgumentNotValidException exception){
         String enumKey = exception.getFieldError().getDefaultMessage();// lay INVALID_PASSWORD
-        //Truong hop nhap sai key, khong co cũng dc
-//        ErrorCode errorCode =ErrorCode.INVALID_KEY;
-//        try {
-//            errorCode = ErrorCode.valueOf(enumKey);// <-map INVALID_PASSWORD
-//        } catch (IllegalArgumentException e) {
-//
-//        }
         ErrorCode errorCode = ErrorCode.valueOf(enumKey);// <-map INVALID_PASSWORD
         // lam viec voi enum va dto
         ApiResponse apiResponse = new ApiResponse();
